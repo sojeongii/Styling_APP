@@ -5,7 +5,6 @@ import android.graphics.drawable.Drawable;
 public class ListItem {
 
     private Drawable image;
-    private String title;
     private String link;
 
     public void setImage(Drawable image){

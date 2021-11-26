@@ -7,8 +7,27 @@
     tools:context=".ManualActivity">
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="manual"/>
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="Smart Mirror Manual"
+        android:textColor="#000000"
+        android:textSize="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:layout_width="300dp"
+        android:layout_height="550dp"
+        android:padding="20dp"
+        android:textSize="16dp"
+        android:background="@drawable/btn_style3"
+        android:text="1. Smart Mirror can be operated through the app\n\n2. If you select the styling you want, you can see it in the Smart Mirror.\n\n3. If you want to know where to buy clothes in the online shopping mall styling, click the image to go to the sales site."
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

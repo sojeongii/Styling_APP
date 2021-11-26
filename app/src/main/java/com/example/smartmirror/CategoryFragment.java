@@ -56,8 +56,8 @@ public class CategoryFragment extends Fragment {
         Button button8 = view.findViewById(R.id.btn_girlish);
 
         //////////////////////////////////////////
-        // 버튼 클릭 시 리스트뷰 바꾸기
         //////////////////////////////////////////
+
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

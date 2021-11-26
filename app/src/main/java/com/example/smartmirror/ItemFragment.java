@@ -52,8 +52,8 @@ public class ItemFragment extends Fragment {
 
 
         //////////////////////////////////////////
-        // 버튼 클릭 시 리스트뷰 바꾸기
         //////////////////////////////////////////
+
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
