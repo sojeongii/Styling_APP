@@ -36,11 +36,11 @@ public class ItemFragment2 extends Fragment {
         Drawable pic4 = getResources().getDrawable(R.drawable.img9);
         Drawable pic5 = getResources().getDrawable(R.drawable.img10);
 
-        adapter.addItem(pic1, "https://www.youtube.com/watch?v=InZ_XAs0-nM");
-        adapter.addItem(pic2,"https://www.youtube.com/watch?v=rod11dE9JaA");
-        adapter.addItem(pic3, "https://www.youtube.com/watch?v=Q-iEfzaikBI");
-        adapter.addItem(pic4, "https://www.youtube.com/watch?v=GA9GigGuf24");
-        adapter.addItem(pic5, "https://www.youtube.com/watch?v=y5paOQU66hg");
+//        adapter.addItem(pic1, "https://www.youtube.com/watch?v=InZ_XAs0-nM");
+//        adapter.addItem(pic2,"https://www.youtube.com/watch?v=rod11dE9JaA");
+//        adapter.addItem(pic3, "https://www.youtube.com/watch?v=Q-iEfzaikBI");
+//        adapter.addItem(pic4, "https://www.youtube.com/watch?v=GA9GigGuf24");
+//        adapter.addItem(pic5, "https://www.youtube.com/watch?v=y5paOQU66hg");
 
         itemList.setAdapter(adapter);
 

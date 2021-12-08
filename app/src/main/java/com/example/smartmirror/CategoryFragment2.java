@@ -31,17 +31,17 @@ public class CategoryFragment2 extends Fragment {
         categoryList = view.findViewById(R.id.categoryList);
         listItem = new ListItem();
         adapter = new ListAdapter(getContext());
-        Drawable pic1 = getResources().getDrawable(R.drawable.img1);
-        Drawable pic2 = getResources().getDrawable(R.drawable.img2);
-        Drawable pic3 = getResources().getDrawable(R.drawable.img3);
-        Drawable pic4 = getResources().getDrawable(R.drawable.img4);
-        Drawable pic5 = getResources().getDrawable(R.drawable.img5);
-
-        adapter.addItem(pic1, "https://www.youtube.com/watch?v=InZ_XAs0-nM");
-        adapter.addItem(pic2,"https://www.youtube.com/watch?v=rod11dE9JaA");
-        adapter.addItem(pic3, "https://www.youtube.com/watch?v=Q-iEfzaikBI");
-        adapter.addItem(pic4, "https://www.youtube.com/watch?v=GA9GigGuf24");
-        adapter.addItem(pic5, "https://www.youtube.com/watch?v=y5paOQU66hg");
+//        Drawable pic1 = getResources().getDrawable(R.drawable.img1);
+//        Drawable pic2 = getResources().getDrawable(R.drawable.img2);
+//        Drawable pic3 = getResources().getDrawable(R.drawable.img3);
+//        Drawable pic4 = getResources().getDrawable(R.drawable.img4);
+//        Drawable pic5 = getResources().getDrawable(R.drawable.img5);
+//
+//        adapter.addItem(pic1, "https://www.youtube.com/watch?v=InZ_XAs0-nM");
+//        adapter.addItem(pic2,"https://www.youtube.com/watch?v=rod11dE9JaA");
+//        adapter.addItem(pic3, "https://www.youtube.com/watch?v=Q-iEfzaikBI");
+//        adapter.addItem(pic4, "https://www.youtube.com/watch?v=GA9GigGuf24");
+//        adapter.addItem(pic5, "https://www.youtube.com/watch?v=y5paOQU66hg");
 
         categoryList.setAdapter(adapter);
 

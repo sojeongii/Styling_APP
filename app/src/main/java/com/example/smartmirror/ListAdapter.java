@@ -1,16 +1,35 @@
 package com.example.smartmirror;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
+import com.bumptech.glide.Glide;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 
 public class ListAdapter extends BaseAdapter {
@@ -18,10 +37,27 @@ public class ListAdapter extends BaseAdapter {
     private Context context;
     private ArrayList<ListItem> listItems = new ArrayList<ListItem>();
 
+    private String top_url = "null";
+    private String outer_url = "null";
+    private String bottom_url = "null";
+    private String onepiece_url = "null";
 
-    public ListAdapter(Context context){
+
+    private String top = "null";
+    private String outer = "null";
+    private String bottom = "null";
+    private String onepiece = "null";
+
+    private String ID;
+    String styling; // table name
+
+    FragmentManager fragmentManager;
+    private FragmentTransaction transaction;
+
+    public ListAdapter(Context context) {
         this.context = context;
     }
+
     @Override
     public int getCount() {
         return listItems.size();
@@ -41,38 +77,91 @@ public class ListAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        if(convertView == null){
+        if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.listview_styling, parent, false);
         }
-
-
+        Log.e("ListAdapter", "here");
+//        Log.e("styling-info",styling);
         ListItem listItem = listItems.get(position);
 //        final TextView titleTextView = (TextView) convertView.findViewById(R.id.stylingTitle);
 
-        ImageButton doneCheck = (ImageButton) convertView.findViewById(R.id.stylingLink);
-        doneCheck.setImageDrawable(listItem.getImage());
+        ImageButton doneCheck = (ImageButton) convertView.findViewById(R.id.stylingDetail);
+        Glide.with(context).load(listItem.getImage()).override(800, 800).into(doneCheck);
+        //doneCheck.setImageDrawable(listItem.getImage());
         doneCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(listItem.getLink()));
+                //Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(listItem.getLink()));
+                Intent intent = new Intent(context, StylingItemActivity.class);
+                //intent.putExtra("count",count);
+                //Log.e("listadapter-id",listItem.getID());
+                intent.putExtra("ID", listItem.getID());
+                Log.e("listadapter-styling", styling);
+                intent.putExtra("styling", styling);
+
                 context.startActivity(intent);
+            }
+        });
+
+        //virtual fitting
+        Button fitting = (Button) convertView.findViewById(R.id.virtualFitting);
+        fitting.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                String id = listItem.getID();
+                String address="http://52.79.59.24/virtualFitting.php?STYLING="+styling+"&ID="+id;
+                //virtualfittingThread fitting_thread = new virtualfittingThread(address);
+                virtualfittingThread fitting_thread = new virtualfittingThread();
+                fitting_thread.execute(address);
+                // fitting_thread.start();
             }
         });
 
         return convertView;
     }
 
-    public void addItem(Drawable image, String Link){
+    public void addItem(String url, String Link, String ID) {
         ListItem listItem = new ListItem();
 
-        listItem.setImage(image);
+        listItem.setImage(url);
         listItem.setLink(Link);
+        listItem.setID(ID);
         listItems.add(listItem);
     }
 
-    public void removeItem(int pos){
+    public void setTopImage(String top_url, String top) {
+        this.top_url = top_url;
+        this.top = top;
+    }
+
+    public void setBottomImage(String bottom_url, String bottom) {
+        this.bottom_url = bottom_url;
+        this.bottom = bottom;
+    }
+
+    public void setOuterImage(String outer_url, String outer) {
+        this.outer_url = outer_url;
+        this.outer = outer;
+    }
+
+    public void setOnepieceImage(String onepiece_url, String onepiece) {
+        this.onepiece_url = onepiece_url;
+        this.onepiece = onepiece;
+    }
+
+    public void setID(String ID) {
+        this.ID = ID;
+    }
+
+    public void setStyling(String styling) {
+        this.styling = styling;
+        Log.e("setting styling", this.styling);
+    }
+
+    public void removeItem(int pos) {
         listItems.remove(pos);
         notifyDataSetChanged();
     }
+
+
 }
