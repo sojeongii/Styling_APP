@@ -85,7 +85,7 @@ public class CategoryFragment extends Fragment {
                 adapter.styling=styling;
                 //adapter.setStyling(styling);
                 GetData task=new GetData();
-                task.execute("http://"+IP_ADDRESS+"/getData2.php","5",styling);
+                task.execute("http://"+IP_ADDRESS+"/getData2.php","6",styling);
 
 
 
@@ -114,7 +114,7 @@ public class CategoryFragment extends Fragment {
                 Log.e("button-styling",styling);
                 adapter.styling=styling;
                 GetData task=new GetData();
-                task.execute("http://"+IP_ADDRESS+"/getData2.php",temp,styling);
+                task.execute("http://"+IP_ADDRESS+"/getData2.php","6",styling);
 
 
 

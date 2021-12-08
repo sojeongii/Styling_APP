@@ -22,7 +22,8 @@ public class ManualActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-
+                takePictureThread pictureThread=new takePictureThread();
+                pictureThread.execute("picture");
 
             }
         });

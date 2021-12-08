@@ -114,6 +114,8 @@ public class ListAdapter extends BaseAdapter {
                 virtualfittingThread fitting_thread = new virtualfittingThread();
                 fitting_thread.execute(address);
                 // fitting_thread.start();
+                //TODO
+
             }
         });
 
