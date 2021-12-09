@@ -27,7 +27,8 @@ public class virtualfittingThread extends AsyncTask<String,String,Void>{
     private String output_message;
     private String input_message;
     Socket socket;
-    private static String ip="192.9.116.221";
+    //private static String ip="192.9.116.221";
+    private static String ip = "172.16.17.242";
     private int port;
     private DataOutputStream dataOutput;
     private DataInputStream dataInput;

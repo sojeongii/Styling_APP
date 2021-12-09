@@ -3,6 +3,7 @@ package com.example.smartmirror;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -21,9 +22,9 @@ public class ManualActivity extends AppCompatActivity {
         buttonCamera.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                takePictureThread pictureThread=new takePictureThread();
-                pictureThread.execute("picture");
+                virtualfittingThread cameraThread = ThreadHandler.getThread();
+                cameraThread.execute("cam");
+                Log.e("send cam", "  ");
 
             }
         });
