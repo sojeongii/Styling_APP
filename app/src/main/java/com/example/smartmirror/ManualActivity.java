@@ -22,9 +22,11 @@ public class ManualActivity extends AppCompatActivity {
         buttonCamera.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
-                virtualfittingThread cameraThread = ThreadHandler.getThread();
-                cameraThread.execute("cam");
-                Log.e("send cam", "  ");
+                //virtualfittingThread cameraThread = ThreadHandler.thread;
+                //ameraThread.execute("cam");
+                //virtualfittingThread camera = ThreadHandler.getThread();
+                virtualfittingThread camera = new virtualfittingThread();
+                camera.execute("cam");
 
             }
         });

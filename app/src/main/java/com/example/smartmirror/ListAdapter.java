@@ -109,10 +109,16 @@ public class ListAdapter extends BaseAdapter {
         fitting.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 String id = listItem.getID();
-                String address="http://52.79.59.24/virtualFitting.php?STYLING="+styling+"&ID="+id;
+                String address="http://52.79.59.24/fitting.php?";
                 //virtualfittingThread fitting_thread = new virtualfittingThread(address);
-                virtualfittingThread fitting_thread = ThreadHandler.getThread();
-                fitting_thread.execute("lin"+address); //lin을 보내면 라즈베리파이에서 링크 실행하게끔
+                virtualfittingThread fitting_thread = new virtualfittingThread();
+//
+                //virtualfittingThread fitting = ThreadHandler.getThread();
+                //fitting.execute("lin"+address);
+                fitting_thread.execute("lin"+address);
+//                ThreadHandler.setThread(fitting_thread);
+                //ThreadHandler.execute("lin"+address);
+                //fitting_thread.execute("lin"+address); //lin을 보내면 라즈베리파이에서 링크 실행하게끔
                 // fitting_thread.start();
                 //TODO
 

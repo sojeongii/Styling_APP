@@ -22,6 +22,7 @@ import org.json.JSONException;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.Socket;
 import java.net.URLEncoder;
 
 public class MainActivity extends AppCompatActivity implements Button.OnClickListener{
@@ -31,6 +32,8 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
         private WeatherData getweather;
         private  double temp= 0;
 
+        public static Socket socket;
+        public static String ip = "172.16.17.242";
         private static final int GPS_ENABLE_REQUEST_CODE = 2001;
         private static final int PERMISSIONS_REQUEST_CODE = 100;
         String[] REQUIRED_PERMISSIONS = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};
@@ -44,8 +47,6 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_main);
-
-
 
 
             if (checkLocationServicesStatus()) {
@@ -91,6 +92,7 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
             buttonCloset.setOnClickListener(this);
             buttonHowTo = (Button)findViewById(R.id.btn_manual);
             buttonHowTo.setOnClickListener(this);
+
         }
 
     //    @Override
