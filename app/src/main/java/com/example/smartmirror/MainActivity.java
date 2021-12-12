@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
         Button buttonStyle;
         Button buttonCloset;
         Button buttonHowTo;
+        Button buttonCamera;
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -92,7 +93,8 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
             buttonCloset.setOnClickListener(this);
             buttonHowTo = (Button)findViewById(R.id.btn_manual);
             buttonHowTo.setOnClickListener(this);
-
+            buttonCamera=(Button)findViewById(R.id.btn_camera);
+            buttonCamera.setOnClickListener(this);
         }
 
     //    @Override
@@ -150,6 +152,20 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
                     Intent intent4 = new Intent(MainActivity.this, ManualActivity.class);
                     startActivity(intent4);
                     break;
+
+                case R.id.btn_camera:
+                    virtualfittingThread camera=new virtualfittingThread();
+                    try {
+                        String result=camera.execute("cam").get();
+                        Log.e("[socket result]",result);
+                        if(result.equals("camera"))
+                        {
+                            Toast.makeText(MainActivity.this, "촬영 완료! ClOSET에서 확인해보세요.", Toast.LENGTH_LONG).show();
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
             }
         }
 

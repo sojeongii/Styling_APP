@@ -15,6 +15,9 @@
         android:theme="@style/Theme.SmartMirror"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ChangeUserItemProperty"
+            android:exported="false" />
+        <activity
             android:name=".StylingItemActivity"
             android:exported="false" />
         <activity

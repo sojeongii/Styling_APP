@@ -15,6 +15,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -31,6 +32,9 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
+
+// musinsa recommendation
 
 public class ListAdapter extends BaseAdapter {
 
@@ -50,6 +54,8 @@ public class ListAdapter extends BaseAdapter {
 
     private String ID;
     String styling; // table name
+
+    String rec_case; // musinsa or user's clothes
 
     FragmentManager fragmentManager;
     private FragmentTransaction transaction;
@@ -81,14 +87,12 @@ public class ListAdapter extends BaseAdapter {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.listview_styling, parent, false);
         }
-        Log.e("ListAdapter", "here");
-//        Log.e("styling-info",styling);
+
         ListItem listItem = listItems.get(position);
 //        final TextView titleTextView = (TextView) convertView.findViewById(R.id.stylingTitle);
 
         ImageButton doneCheck = (ImageButton) convertView.findViewById(R.id.stylingDetail);
         Glide.with(context).load(listItem.getImage()).override(800, 800).into(doneCheck);
-        //doneCheck.setImageDrawable(listItem.getImage());
         doneCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -97,7 +101,7 @@ public class ListAdapter extends BaseAdapter {
                 //intent.putExtra("count",count);
                 //Log.e("listadapter-id",listItem.getID());
                 intent.putExtra("ID", listItem.getID());
-                Log.e("listadapter-styling", styling);
+                //Log.e("listadapter-styling", styling);
                 intent.putExtra("styling", styling);
 
                 context.startActivity(intent);
@@ -109,13 +113,23 @@ public class ListAdapter extends BaseAdapter {
         fitting.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 String id = listItem.getID();
-                String address="http://52.79.59.24/fitting.php?";
-                //virtualfittingThread fitting_thread = new virtualfittingThread(address);
+                String address="http://52.79.59.24/fitting.php?"; // TODO: 테스트용
+                //String address="http://52.79.59.24/virtualFitting.php?STYLING="+styling+"&ID="+id; TODO: 실제 사용해야하는 코드
+
                 virtualfittingThread fitting_thread = new virtualfittingThread();
 //
                 //virtualfittingThread fitting = ThreadHandler.getThread();
                 //fitting.execute("lin"+address);
-                fitting_thread.execute("lin"+address);
+                try {
+                    String result=fitting_thread.execute("lin"+address).get();
+                    Log.e("[socket result]",result);
+                    if(result.equals("fitting"))
+                    {
+                        Toast.makeText(context.getApplicationContext(), "스마트미러로 스타일링을 확인해보세요!", Toast.LENGTH_LONG).show();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 //                ThreadHandler.setThread(fitting_thread);
                 //ThreadHandler.execute("lin"+address);
                 //fitting_thread.execute("lin"+address); //lin을 보내면 라즈베리파이에서 링크 실행하게끔
@@ -163,12 +177,19 @@ public class ListAdapter extends BaseAdapter {
 
     public void setStyling(String styling) {
         this.styling = styling;
-        Log.e("setting styling", this.styling);
     }
 
     public void removeItem(int pos) {
         listItems.remove(pos);
         notifyDataSetChanged();
+    }
+    public void setRec_case(String rec_case)
+    {
+        this.rec_case=rec_case;
+    }
+    public String getRec_case()
+    {
+        return rec_case;
     }
 
 

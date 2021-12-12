@@ -7,11 +7,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import java.util.concurrent.ExecutionException;
+
 public class ManualActivity extends AppCompatActivity {
 
     Button buttonCamera;
     String IP_ADDRESS;
-
+    String result;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,7 +28,12 @@ public class ManualActivity extends AppCompatActivity {
                 //ameraThread.execute("cam");
                 //virtualfittingThread camera = ThreadHandler.getThread();
                 virtualfittingThread camera = new virtualfittingThread();
-                camera.execute("cam");
+                try {
+                    result=camera.execute("cam").get();
+                    Log.e("[socket result]",result);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
             }
         });

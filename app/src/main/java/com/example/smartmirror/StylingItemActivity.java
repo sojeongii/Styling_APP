@@ -19,6 +19,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+// 무신사 추천 스타일링의 개별 아이템을 보여줌
+
 public class StylingItemActivity extends AppCompatActivity {
 
     ListView itemList;

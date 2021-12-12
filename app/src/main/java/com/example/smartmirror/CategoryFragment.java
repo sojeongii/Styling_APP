@@ -47,7 +47,7 @@ public class CategoryFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         Bundle bundle=this.getArguments();
         temp=bundle.getString("temp_section");
-        Log.e(">>3.Temperature section: ",temp);
+        //Log.e(">>3.Temperature section: ",temp);
         return inflater.inflate(R.layout.fragment_category, container, false);
     }
 

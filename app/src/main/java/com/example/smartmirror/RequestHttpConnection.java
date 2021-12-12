@@ -6,77 +6,104 @@ import android.util.Log;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class RequestHttpConnection {
-    public String request(String _url, ContentValues _params) {
+    public static String postRequest(String _url, LinkedHashMap<String,String> _params) {
+
         HttpURLConnection urlConn = null;
+
         StringBuffer sbParams = new StringBuffer();
 
-        //1. StringBuffer에 파라미터연결
-        if (_params == null) // 보낼 데이터가 없으면 파라미터 비움
-        {
+        if (_params == null)
             sbParams.append("");
-        } else {
+        else {
             boolean isAnd = false;
-
-            //파라미터 값
             String key;
             String value;
 
-            for (Map.Entry<String, Object> parameter : _params.valueSet()) {
-                key = parameter.getKey();
-                value = parameter.getValue().toString();
-
-                //파라미터가 두 개 이상이면 파라미터 사이에 &
-                if (isAnd) {
+            for(Map.Entry<String,String> parameter: _params.entrySet())
+            {
+                key=parameter.getKey();
+                Log.e("contentkey",key);
+                value=parameter.getValue().toString();
+                Log.e("contentvalue",value);
+                if(isAnd)
+                {
                     sbParams.append("&");
                 }
                 sbParams.append(key).append("=").append(value);
-                if (!isAnd) {
-                    if (_params.size() >= 2) {
-                        isAnd = true;
+                if(!isAnd)
+                {
+                    if(_params.size()>=2)
+                    {
+                        isAnd=true;
                     }
                 }
             }
+            Log.e("sbParams",String.valueOf(sbParams));
+
+//            for(Map.Entry<String, Object> parameter : _params.valueSet()){
+//                key = parameter.getKey();
+//                Log.e("contentkey",key);
+//                value = parameter.getValue().toString();
+//                Log.e("contentvalue",value);
+//                if (isAnd)
+//                    sbParams.append("&");
+//
+//                sbParams.append(key).append("=").append(value);
+//
+//                if (!isAnd)
+//                    if (_params.size() >= 2)
+//                        isAnd = true;
+//            }
         }
-        try {
+
+        try{
             URL url = new URL(_url);
+            Log.e("url",String.valueOf(url));
             urlConn = (HttpURLConnection) url.openConnection();
 
-            urlConn.setRequestMethod("GET");
+            urlConn.setRequestMethod("POST");
             urlConn.setRequestProperty("Accept-Charset", "UTF-8");
-            urlConn.setDoOutput(false);
+            urlConn.setRequestProperty("Context_Type", "application/x-www-form-urlencoded;charset=UTF-8");
 
-            if (urlConn.getResponseCode() != HttpURLConnection.HTTP_OK) {
-                Log.d("HTTP_OK", "연결 요청 실패");
+            String strParams = sbParams.toString();
+            Log.e("strParams",strParams);
+            OutputStream os = urlConn.getOutputStream();
+            os.write(strParams.getBytes("UTF-8"));
+            os.flush();
+            os.close();
+
+            if (urlConn.getResponseCode() != HttpURLConnection.HTTP_OK)
                 return null;
-            }
 
-            BufferedReader reader = new BufferedReader((new InputStreamReader(urlConn.getInputStream())));
+            BufferedReader reader = new BufferedReader(new InputStreamReader(urlConn.getInputStream(), "UTF-8"));
 
             String line;
             String page = "";
 
-            while ((line = reader.readLine()) != null) {
+            while ((line = reader.readLine()) != null){
                 page += line;
             }
+
             return page;
+
         } catch (MalformedURLException e) {
-            Log.d("MalformedURLException", String.valueOf(e));
             e.printStackTrace();
         } catch (IOException e) {
-            Log.d("IOException", String.valueOf(e));
             e.printStackTrace();
         } finally {
-            if (urlConn != null) {
+            if (urlConn != null)
                 urlConn.disconnect();
-            }
-
         }
+
         return null;
     }
 
