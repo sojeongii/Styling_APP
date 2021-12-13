@@ -125,6 +125,7 @@ public class ListAdapter extends BaseAdapter {
                     Log.e("[socket result]",result);
                     if(result.equals("fitting"))
                     {
+                        Log.e("[toast]","fitting");
                         Toast.makeText(context.getApplicationContext(), "스마트미러로 스타일링을 확인해보세요!", Toast.LENGTH_LONG).show();
                     }
                 } catch (Exception e) {

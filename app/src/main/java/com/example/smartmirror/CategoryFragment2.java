@@ -58,11 +58,7 @@ public class CategoryFragment2 extends Fragment {
             String result=recommend.execute("rec").get();
             Log.e("[socket result-]",result);
             String[] recommendation_case=result.split("-");
-            //ContentValues values=new ContentValues();
-            //LinkedHashMap<String,String> values=new LinkedHashMap<>();
             String cases=Integer.toString(recommendation_case.length); // 추천되는 스타일링 개수
-//            values.put("COUNT",cases);
-//            Log.e("count",cases);
             int case_=0; // 아우터-상의-하의면 3 상의-하의면 2
             StringBuilder parameters=new StringBuilder();
             parameters.append("?COUNT="+cases);
@@ -74,10 +70,6 @@ public class CategoryFragment2 extends Fragment {
                 {
                     parameters.append("&"+i+"TOP="+ids[0]);
                     parameters.append("&"+i+"BOTTOM="+ids[1]);
-//                    values.put(i+"TOP",ids[0]);
-//                    Log.e("put value top",String.valueOf(i+"TOP"+ids[0]));
-//                    values.put(i+"BOTTOM",ids[1]);
-//                    Log.e("put value bottom",String.valueOf(i+"BOTTOM"+ids[1]));
 
                 }
                 else if(ids.length==3)
@@ -85,35 +77,16 @@ public class CategoryFragment2 extends Fragment {
                     parameters.append("&"+i+"OUTER="+ids[0]);
                     parameters.append("&"+i+"TOP="+ids[1]);
                     parameters.append("&"+i+"BOTTOM="+ids[2]);
-//                    values.put(i+"OUTER",ids[0]);
-//                    values.put(i+"TOP",ids[1]);
-//                    values.put(i+"BOTTOM",ids[2]);
                 }
 
             }
             parameters.append("&CASE="+case_);
-//            values.put("CASE",String.valueOf(case_));
-//            Log.e("case",String.valueOf(case_));
-//            GetRecommendation networkTask=new GetRecommendation("https://"+IP_ADDRESS+"/getRecommendation.php",values);
-//            networkTask.execute();
             GetRecommendation networkTask=new GetRecommendation();
             networkTask.execute("http://"+IP_ADDRESS+"/getRecommendation.php",parameters.toString());
         }
-        catch(Exception e)
-        {
-
+        catch(Exception e) {
+            e.printStackTrace();
         }
-//        Drawable pic1 = getResources().getDrawable(R.drawable.img1);
-//        Drawable pic2 = getResources().getDrawable(R.drawable.img2);
-//        Drawable pic3 = getResources().getDrawable(R.drawable.img3);
-//        Drawable pic4 = getResources().getDrawable(R.drawable.img4);
-//        Drawable pic5 = getResources().getDrawable(R.drawable.img5);
-//
-//        adapter.addItem(pic1, "https://www.youtube.com/watch?v=InZ_XAs0-nM");
-//        adapter.addItem(pic2,"https://www.youtube.com/watch?v=rod11dE9JaA");
-//        adapter.addItem(pic3, "https://www.youtube.com/watch?v=Q-iEfzaikBI");
-//        adapter.addItem(pic4, "https://www.youtube.com/watch?v=GA9GigGuf24");
-//        adapter.addItem(pic5, "https://www.youtube.com/watch?v=y5paOQU66hg");
 
         categoryList.setAdapter(adapter);
 
@@ -144,7 +117,7 @@ public class CategoryFragment2 extends Fragment {
                     JSONObject object=jsonArray.getJSONObject(i);
 
                     Log.e("case",String.valueOf(object.length()));
-                    if(object.length()==2)
+                    if(object.length()==4)
                     {
                         String top_image=object.getString("Top").toString();
                         String top_id=object.getString("Top_ID").toString();
@@ -153,7 +126,7 @@ public class CategoryFragment2 extends Fragment {
 
                         adapter.addItem("",top_image,bottom_image,"",top_id,bottom_id);
                     }
-                    else if(object.length()==3)
+                    else if(object.length()==6)
                     {
                         String outer_image=object.getString("Outer").toString();
                         String outer_id=object.getString("Outer_ID").toString();
