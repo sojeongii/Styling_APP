@@ -27,7 +27,7 @@ public class virtualfittingThread extends AsyncTask<String,String,String>{
     private String output_message;
     private String input_message;
     Socket socket;
-    private static String ip="172.30.1.33";
+    private static String ip="192.9.116.211";
 //    private static String ip="192.9.116.162";
     //private static String ip = "192.9.116.43";
     private int port;
@@ -57,7 +57,7 @@ public class virtualfittingThread extends AsyncTask<String,String,String>{
            }
            else{
                Log.e("else", "~~~");
-               socket = new Socket(ip,9998);
+               socket = new Socket(ip,9990);
                Log.e("make", "~~~");
                SocketHandler.setSocket(socket);
                Log.e("~~~", "~~~");
