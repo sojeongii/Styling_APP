@@ -116,9 +116,6 @@ public class CategoryFragment extends Fragment {
                 GetData task=new GetData();
                 task.execute("http://"+IP_ADDRESS+"/getData2.php","7",styling);
 
-
-
-
             }
         });
         // street

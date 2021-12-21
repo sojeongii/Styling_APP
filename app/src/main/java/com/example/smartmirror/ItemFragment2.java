@@ -34,6 +34,7 @@ public class ItemFragment2 extends Fragment {
     UserItemAdapter adapter;
     private static String IP_ADDRESS="52.79.59.24";
     String TAG="php";
+    String cate;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -46,18 +47,7 @@ public class ItemFragment2 extends Fragment {
         itemList = view.findViewById(R.id.itemList);
         listItem = new ListItem();
         adapter = new UserItemAdapter(getContext());
-        Drawable pic1 = getResources().getDrawable(R.drawable.img6);
-        Drawable pic2 = getResources().getDrawable(R.drawable.img7);
-        Drawable pic3 = getResources().getDrawable(R.drawable.img8);
-        Drawable pic4 = getResources().getDrawable(R.drawable.img9);
-        Drawable pic5 = getResources().getDrawable(R.drawable.img10);
 
-        adapter.addItem("", "");
-        //Glide.with.load(listItem.getImage()).override(800, 800);
-        //adapter.addItem(pic2,"https://www.youtube.com/watch?v=rod11dE9JaA");
-        //adapter.addItem(pic3, "https://www.youtube.com/watch?v=Q-iEfzaikBI");
-        //adapter.addItem(pic4, "https://www.youtube.com/watch?v=GA9GigGuf24");
-        //adapter.addItem(pic5, "https://www.youtube.com/watch?v=y5paOQU66hg");
 
         itemList.setAdapter(adapter);
 
@@ -74,7 +64,9 @@ public class ItemFragment2 extends Fragment {
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                adapter.category="top";
+                cate="top";
+                adapter.category=cate;
+                adapter.setCate("top");
                 GetUserItem task=new GetUserItem();
                 task.execute("http://"+IP_ADDRESS+"/getUserItem.php","top");
             }
@@ -83,7 +75,9 @@ public class ItemFragment2 extends Fragment {
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                adapter.category="bottom";
+                cate="bottom";
+                adapter.category=cate;
+                adapter.setCate("bottom");
                 GetUserItem task=new GetUserItem();
                 task.execute("http://"+IP_ADDRESS+"/getUserItem.php","bottom");
             }
@@ -92,7 +86,9 @@ public class ItemFragment2 extends Fragment {
         button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                adapter.category="outer";
+                cate="outer";
+                adapter.category=cate;
+                Log.e("category",adapter.category);
                 GetUserItem task=new GetUserItem();
                 task.execute("http://"+IP_ADDRESS+"/getUserItem.php","outer");
             }
@@ -101,7 +97,8 @@ public class ItemFragment2 extends Fragment {
         button4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                adapter.category="onepiece";
+               cate="onepiece";
+                adapter.category=cate;
                 GetUserItem task=new GetUserItem();
                 task.execute("http://"+IP_ADDRESS+"/getUserItem.php","onepiece");
             }

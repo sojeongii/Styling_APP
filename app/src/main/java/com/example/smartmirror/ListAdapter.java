@@ -90,7 +90,7 @@ public class ListAdapter extends BaseAdapter {
 
         ListItem listItem = listItems.get(position);
 //        final TextView titleTextView = (TextView) convertView.findViewById(R.id.stylingTitle);
-
+        Log.e("styling===============",styling);
         ImageButton doneCheck = (ImageButton) convertView.findViewById(R.id.stylingDetail);
         Glide.with(context).load(listItem.getImage()).override(800, 800).into(doneCheck);
         doneCheck.setOnClickListener(new View.OnClickListener() {
