@@ -49,7 +49,7 @@ public class ItemFragment2 extends Fragment {
         adapter = new UserItemAdapter(getContext());
 
 
-        itemList.setAdapter(adapter);
+        //itemList.setAdapter(adapter);
 
         Button button1 = view.findViewById(R.id.btn_top2);
         Button button2 = view.findViewById(R.id.btn_bottom2);
@@ -66,6 +66,7 @@ public class ItemFragment2 extends Fragment {
             public void onClick(View view) {
                 cate="top";
                 adapter.category=cate;
+                Log.e("category",adapter.category);
                 adapter.setCate("top");
                 GetUserItem task=new GetUserItem();
                 task.execute("http://"+IP_ADDRESS+"/getUserItem.php","top");
@@ -97,7 +98,7 @@ public class ItemFragment2 extends Fragment {
         button4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               cate="onepiece";
+                cate="onepiece";
                 adapter.category=cate;
                 GetUserItem task=new GetUserItem();
                 task.execute("http://"+IP_ADDRESS+"/getUserItem.php","onepiece");
@@ -108,6 +109,7 @@ public class ItemFragment2 extends Fragment {
     class GetUserItem extends AsyncTask<String, Void,String> {
 
         ProgressDialog progressDialog;
+        String category;
 
         protected void onPreExecute()
         {
@@ -133,6 +135,7 @@ public class ItemFragment2 extends Fragment {
                     adapter.addItem(image_url,id);
 
                 }
+                adapter.category=category;
                 itemList.setAdapter(adapter);
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -142,7 +145,7 @@ public class ItemFragment2 extends Fragment {
         }
         @Override
         protected String doInBackground(String... params) {
-            String category = (String)params[1];
+            category = (String)params[1];
 
             String serverURL = (String)params[0];
             //TODO: change serverURL
